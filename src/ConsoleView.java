@@ -5,8 +5,23 @@ public class ConsoleView {
     private String user_name;
 
     private void returnMenu(UserAccess access) {
-
+        System.out.println("##   Return a book   ##");
+        boolean running = true;
+        while (running) {
+            System.out.println("Please enter the author and title of the book you wish to return: ");
+            String author = InputHandler.getAuthor();
+            String title = InputHandler.getTitle();
+            Book book = access.findBook(title, author);
+            if (!book.available) {
+                access.returnBook(book);
+                System.out.println("Return completed! Thank you!");
+                running = false;
+            } else {
+                System.out.println("No book found, try again.");
+            }
+        }
     }
+
 
     private void loanMenu(UserAccess access) {
         System.out.println("##   Loan a book   ##");

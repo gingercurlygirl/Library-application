@@ -65,7 +65,7 @@ public class BookDAO {
             ps.setBoolean(3, true);
 
             ps.executeUpdate();
-            System.out.println("Customer added successfully");
+            System.out.println("Book added successfully");
 
         } catch (SQLException e) {
             System.out.println("Failed to add book");
@@ -97,5 +97,24 @@ public class BookDAO {
 
     }
 
+    public void setAvailable(boolean available, int bookId) {
+        String sql = "UPDATE books SET available = ? WHERE id = ?";
+
+         try {
+            Connection conn = Database.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, true);
+            ps.setInt(2, bookId);
+
+            ps.executeUpdate();
+            System.out.println("Book updated successfully");
+
+        } catch (SQLException e) {
+            System.out.println("Failed update book");
+            e.printStackTrace();
+        }
+
+    }
 
 }

@@ -5,9 +5,9 @@ import java.util.List;
 public class LoanDAO {
 
     public void loanBook(String user_name, int book_id, java.sql.Date loan_date, java.sql.Date return_date) {
-        String sql ="INSERT INTO loans (user_name, book_id, loan_date, return_date) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO loans (user_name, book_id, loan_date, return_date) VALUES (?,?,?,?)";
 
-          try{
+        try {
             Connection conn = Database.getConnection();
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -19,7 +19,7 @@ public class LoanDAO {
             ps.executeUpdate();
             System.out.println("Book loaned successfully");
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Failed to loan book");
             e.printStackTrace();
         }
@@ -48,4 +48,25 @@ public class LoanDAO {
         return loans;
 
     }
+
+    public void deleteLoan(int book_id) {
+        String sql = "DELETE FROM loans WHERE book_id = ?";
+
+        try {
+            Connection conn = Database.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, book_id);
+
+            ps.executeUpdate();
+            System.out.println("Book returned successfully");
+
+        } catch (SQLException e) {
+            System.out.println("Failed to return book");
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

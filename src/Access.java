@@ -24,6 +24,8 @@ public class Access implements AdminAccess, UserAccess {
 
     @Override
     public void returnBook(Book book) {
+        bookDAO.setAvailable(true, book.id);
+        loanDAO.deleteLoan(book.id);
 
     }
 
