@@ -7,6 +7,8 @@ public class ConsoleView {
 
     private void workWithUser(UserAccess access) {
         System.out.println(access.getAllBooks());
+
+
     }
     private void workWithAdmin(AdminAccess access) {
         System.out.println("Enter title: ");
@@ -15,6 +17,8 @@ public class ConsoleView {
         String author = scanner.next();
 
         access.addBook(title, author);
+        access.loanBook("asndj", "lotr");
+        System.out.println(access.getAllLoans());
     }
 
     public void showMenu() {
@@ -43,24 +47,6 @@ public class ConsoleView {
         }
     }
 
-    private void getAllBooks() {
-
-//        List<Book> allBooks = BookDAO.getAllBooks();
-//        System.out.println("Books: ");
-//        allBooks.forEach(s -> System.out.println(s));
-    }
-
-    public void addBook() {
-        System.out.println("Enter title: ");
-        String title = scanner.next();
-        System.out.println("Enter author: ");
-        String author = scanner.next();
-        System.out.println("Enter available: ");
-        String available = scanner.next();
-
-
-//        BookDAO.addBook(title, author, Boolean.parseBoolean(available));
-    }
 }
 
 

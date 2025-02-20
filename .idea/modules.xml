@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Library_application_mysql_jdbc_java.iml" filepath="$PROJECT_DIR$/Library_application_mysql_jdbc_java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library-application.iml" filepath="$PROJECT_DIR$/Library-application.iml" />
     </modules>
   </component>
 </project>
