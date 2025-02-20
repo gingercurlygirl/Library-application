@@ -4,24 +4,45 @@ import java.util.List;
 
 public class BookDAO {
 
-    public Book findBook(String title) {
+    public Book findBook(String title, String author) {
 
         Book book = null;
 
-        String sql = "SELECT * FROM books WHERE books.title = ?";
+        String sql;
+        if (title == null && author == null) {
+            return null;
+        } else if (author == null) {
+            sql = "SELECT * FROM books WHERE books.title = ?";
+        } else if (title == null) {
+            sql = "SELECT * FROM books WHERE books.author = ?";
+        } else {
+            sql = "SELECT * FROM books WHERE books.title = ? AND books.author = ?";
+        }
 
-        try{
+
+        try {
             Connection conn = Database.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
+
             stmt.setString(1, title);
+
+            if (author == null) {
+                stmt.setString(1, title);
+            } else if (title == null) {
+                stmt.setString(1, author);
+            } else {
+                stmt.setString(1, title);
+                stmt.setString(2, author);
+            }
+
             ResultSet rs = stmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available"));
                 break;
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Failed to get your book! Try again!");
             e.printStackTrace();
 
@@ -30,13 +51,12 @@ public class BookDAO {
         return book;
 
 
-
     }
 
     public void addBook(String title, String author) {
         String sql = "INSERT INTO books(title, author, available) VALUES(?,?,?)";
 
-        try{
+        try {
             Connection conn = Database.getConnection();
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -47,27 +67,27 @@ public class BookDAO {
             ps.executeUpdate();
             System.out.println("Customer added successfully");
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println("Failed to add book");
             e.printStackTrace();
         }
     }
 
-    public List<Book> getAllBooks(){
+    public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<Book>();
 
         String sql = "select * from books";
 
-        try{
+        try {
             Connection conn = Database.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
 
-            while(rs.next()){
+            while (rs.next()) {
                 books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available")));
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("failed to get all books");
             e.printStackTrace();
 
@@ -75,7 +95,7 @@ public class BookDAO {
 
         return books;
 
-}
+    }
 
 
 }

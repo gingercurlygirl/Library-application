@@ -28,19 +28,16 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
-    public void loanBook(String user_name, String title) {
-
-
-        Book book = bookDAO.findBook(title);
-        if (book == null) {
-            System.out.println("Book not found");
-            return;
-        }
-
+    public void loanBook(String user_name, Book book) {
         LocalDate loan_date = LocalDate.now();
         LocalDate return_date = loan_date.plusMonths(1);
 
         loanDAO.loanBook(user_name, book.id, Date.valueOf(loan_date), Date.valueOf(return_date));
 
+    }
+
+    @Override
+    public Book findBook(String title, String author) {
+        return bookDAO.findBook(title, author);
     }
 }
