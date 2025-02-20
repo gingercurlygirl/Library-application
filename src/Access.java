@@ -18,6 +18,11 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
+    public void deleteBook(int book_id) {
+        bookDAO.deleteBook(book_id);
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         return bookDAO.getAllBooks();
     }

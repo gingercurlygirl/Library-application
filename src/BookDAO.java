@@ -100,7 +100,7 @@ public class BookDAO {
     public void setAvailable(boolean available, int bookId) {
         String sql = "UPDATE books SET available = ? WHERE id = ?";
 
-         try {
+        try {
             Connection conn = Database.getConnection();
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -111,10 +111,28 @@ public class BookDAO {
             System.out.println("Book updated successfully");
 
         } catch (SQLException e) {
-            System.out.println("Failed update book");
+            System.out.println("Failed updating book");
             e.printStackTrace();
         }
 
+    }
+
+    public void deleteBook(int bookId) {
+        String sql = "DELETE FROM books WHERE id = ? AND available = true";
+
+        try {
+            Connection conn = Database.getConnection();
+
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, bookId);
+
+            ps.executeUpdate();
+            System.out.println("Book deleted successfully");
+
+        } catch (SQLException e) {
+            System.out.println("Failed deleting book. Maybe book is already loaned or does not exist.");
+            e.printStackTrace();
+        }
     }
 
 }

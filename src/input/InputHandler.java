@@ -137,4 +137,13 @@ public class InputHandler {
             System.out.println("Invalid input! Maximum length  10 characters. Letters only.");
         }
     }
+    public static int getInt() {
+        while (true) {
+            if(scanner.hasNextInt()){
+                return scanner.nextInt();
+            }
+            scanner.nextLine();
+            System.out.println("Please enter an integer");
+        }
+    }
 }

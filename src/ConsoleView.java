@@ -105,21 +105,13 @@ public class ConsoleView {
 
 
     private void workWithAdmin(AdminAccess access) {
-//        System.out.println("Enter title: ");
-//        String title = scanner.next();
-//        System.out.println("Enter author: ");
-//        String author = scanner.next();
-//        access.addBook(title, author);
-//        access.loanBook("asndj", "lotr");
-//        System.out.println(access.getAllLoans());
-
         boolean running = true;
         while (running) {
             System.out.println("##   Logged in as administrator   ##");
             System.out.println("What do you want to do?\n");
             System.out.println("1. Add book");
-            System.out.println("2. Remove profile");
-            System.out.println("3. List all books");
+            System.out.println("2. Remove book");
+            System.out.println("3. List all books and availabilities");
             System.out.println("0. Quit to main menu");
             AdminMenuMode mode = InputHandler.getAdminMenuMode();
             switch (mode) {
@@ -131,9 +123,11 @@ public class ConsoleView {
                     access.addBook(title, author);
                 }
                 case AdminMenuMode.REMOVE -> {
+                    System.out.println("Enter book id: ");
+                    access.deleteBook(InputHandler.getInt());
                 }
-                case AdminMenuMode.ALL_BOOKS -> {
-                }
+
+                case AdminMenuMode.ALL_BOOKS -> System.out.println(access.getAllBooks());
                 case AdminMenuMode.EXITING -> running = false;
             }
         }
