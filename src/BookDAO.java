@@ -22,20 +22,20 @@ public class BookDAO {
 
         try {
             Connection conn = Database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
 
-            stmt.setString(1, title);
+            ps.setString(1, title);
 
             if (author == null) {
-                stmt.setString(1, title);
+                ps.setString(1, title);
             } else if (title == null) {
-                stmt.setString(1, author);
+                ps.setString(1, author);
             } else {
-                stmt.setString(1, title);
-                stmt.setString(2, author);
+                ps.setString(1, title);
+                ps.setString(2, author);
             }
 
-            ResultSet rs = stmt.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available"));
@@ -80,8 +80,8 @@ public class BookDAO {
 
         try {
             Connection conn = Database.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available")));

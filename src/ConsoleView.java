@@ -95,8 +95,7 @@ public class ConsoleView {
             switch (mode) {
                 case UserMenuMode.LOAN -> loanMenu(access);
                 case UserMenuMode.RETURN -> returnMenu(access);
-                case UserMenuMode.MY_LOANS -> {
-                }
+                case UserMenuMode.MY_LOANS -> System.out.println(access.getAllLoans(user_name));
                 case UserMenuMode.SEARCH -> searchMenu(access);
                 case UserMenuMode.EXITING -> running = false;
             }

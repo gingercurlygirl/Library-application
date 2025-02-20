@@ -13,8 +13,8 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
-    public List<Loan> getAllLoans() {
-        return loanDAO.getAllLoans();
+    public List<Loan> getAllLoans(String user_name) {
+        return loanDAO.getAllLoans(user_name);
     }
 
     @Override

@@ -96,19 +96,6 @@ public class InputHandler {
         }
     }
 
-    public static int getIntInRange(int min, int max) {
-        while (true) {
-            if(scanner.hasNextInt()){
-                int input = scanner.nextInt();
-                if (input >= min && input <= max) {
-                    scanner.nextLine();
-                    return input;
-                }
-            }
-            scanner.nextLine();
-            System.out.println("Invalid input. Enter an Integer between " + min + " and " + max + ".");
-        }
-    }
     public static String getTitle() {
         while (true) {
             String answer = scanner.nextLine();

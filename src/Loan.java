@@ -13,26 +13,6 @@ public class Loan {
         this.return_date = return_date;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public int getBook_id() {
-        return book_id;
-    }
-
-    public String getLoan_date() {
-        return loan_date;
-    }
-
-    public String getReturn_date() {
-        return return_date;
-    }
-
     @Override
     public String toString() {
         return "Loan{" +

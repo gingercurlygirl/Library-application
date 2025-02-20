@@ -25,15 +25,16 @@ public class LoanDAO {
         }
     }
 
-    public List<Loan> getAllLoans() {
+    public List<Loan> getAllLoans(String user_name) {
         List<Loan> loans = new ArrayList<Loan>();
 
-        String sql = "SELECT * FROM loans";
+        String sql = "SELECT * FROM loans WHERE user_name = ?";
 
         try {
             Connection conn = Database.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, user_name);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 loans.add(new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date")));
@@ -67,6 +68,7 @@ public class LoanDAO {
         }
 
     }
+
 
 
 }

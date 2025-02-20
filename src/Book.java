@@ -11,29 +11,19 @@ public class Book {
         this.available = available;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public boolean isAvailable() {
-        return available;
-    }
-
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", available=" + available +
-                '}';
+
+        String availableStr;
+        if (available) {
+            availableStr = "available";
+        }else {
+            availableStr = "not available";
+        }
+
+        return  "id= " + id +
+                ", Title= " + title  +
+                ", Author= " + author  +
+                ", Available= " + availableStr;
     }
 }
