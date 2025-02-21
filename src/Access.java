@@ -38,9 +38,25 @@ public class Access implements AdminAccess, UserAccess {
             return;
         }
 
-        bookDAO.setAvailable(true, book.id);
-        loanDAO.deleteLoan(book.id);
+        // Ensure that book exists in books, that found book is same as given book, and that found book is not available
+        Book book_by_finding = bookDAO.findBook(book.id);
+        if (book_by_finding == null || book.id != book_by_finding.id || book_by_finding.available) {
+            return;
+        }
 
+        // Ensure that loan exists in loans, that found loan contains the same book as given book
+        Loan loan_by_finding = loanDAO.findLoan(book.id);
+        if (loan_by_finding == null || book.id != loan_by_finding.book_id) {
+            return;
+        }
+
+        // TODO:
+        //if (username != loan_by_finding.user_name) {
+        //    return;
+        //}
+
+        loanDAO.deleteLoan(book.id);
+        bookDAO.setAvailable(true, book.id);
     }
 
     @Override
