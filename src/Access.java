@@ -23,6 +23,11 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
+    public Book findBook(int book_id) {
+        return bookDAO.findBook(book_id);
+    }
+
+    @Override
     public List<Book> getAllBooks() {
         return bookDAO.getAllBooks();
     }

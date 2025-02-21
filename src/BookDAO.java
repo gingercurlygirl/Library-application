@@ -4,6 +4,32 @@ import java.util.List;
 
 public class BookDAO {
 
+    public Book findBook(int book_id) {
+        Book book = null;
+
+        String sql = "SELECT * FROM books WHERE books.id = ?";
+        try {
+            Connection conn = Database.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, book_id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available"));
+                break;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Failed to get your book! Try again!");
+            e.printStackTrace();
+
+        }
+
+        return book;
+    }
+
     public Book findBook(String title, String author) {
 
         Book book = null;

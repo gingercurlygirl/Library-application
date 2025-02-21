@@ -123,7 +123,13 @@ public class ConsoleView {
                 }
                 case AdminMenuMode.REMOVE -> {
                     System.out.println("Enter book id: ");
-                    access.deleteBook(InputHandler.getInt());
+                    int book_id = InputHandler.getInt();
+                    Book book = access.findBook(book_id);
+                    if (book == null) {
+                        System.out.println("Book not found");
+                    } else {
+                        access.deleteBook(book_id);
+                    }
                 }
 
                 case AdminMenuMode.ALL_BOOKS -> System.out.println(access.getAllBooks());
