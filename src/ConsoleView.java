@@ -31,12 +31,16 @@ public class ConsoleView {
             String author = InputHandler.getAuthor();
             String title = InputHandler.getTitle();
             Book book = access.findBook(title, author);
-            if (book != null) {
+            if (book != null && book.available) {
                 access.loanBook(user_name, book);
                 System.out.println("Loan completed! Enjoy your book.");
                 running = false;
             } else {
-                System.out.println("No book found, try again.");
+                if (book == null) {
+                    System.out.println("No book found, try again.");
+                } else {
+                    System.out.println("Book is not available, try again.");
+                }
             }
         }
     }

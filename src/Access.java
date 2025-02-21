@@ -34,6 +34,10 @@ public class Access implements AdminAccess, UserAccess {
 
     @Override
     public void returnBook(Book book) {
+        if (book == null || book.available) {
+            return;
+        }
+
         bookDAO.setAvailable(true, book.id);
         loanDAO.deleteLoan(book.id);
 
@@ -41,11 +45,15 @@ public class Access implements AdminAccess, UserAccess {
 
     @Override
     public void loanBook(String user_name, Book book) {
+        if (book == null || !book.available) {
+            return;
+        }
+
         LocalDate loan_date = LocalDate.now();
         LocalDate return_date = loan_date.plusMonths(1);
 
         loanDAO.loanBook(user_name, book.id, Date.valueOf(loan_date), Date.valueOf(return_date));
-
+        bookDAO.setAvailable(false, book.id);
     }
 
     @Override

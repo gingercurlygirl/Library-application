@@ -130,7 +130,7 @@ public class BookDAO {
             Connection conn = Database.getConnection();
 
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setBoolean(1, true);
+            ps.setBoolean(1, available);
             ps.setInt(2, bookId);
 
             ps.executeUpdate();
