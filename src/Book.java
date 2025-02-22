@@ -21,9 +21,9 @@ public class Book {
             availableStr = "not available";
         }
 
-        return  "id= " + id +
-                ", Title= " + title  +
-                ", Author= " + author  +
-                ", Available= " + availableStr;
+        return "\nId= " + id +
+                "\nTitle= " + title  +
+                "\nAuthor= " + author  +
+                "\nAvailable= " + availableStr + "\n";
     }
 }

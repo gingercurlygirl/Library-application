@@ -114,7 +114,7 @@ public class BookDAO {
             }
 
         } catch (SQLException e) {
-            System.out.println("failed to get all books");
+            System.out.println("Failed to get all books");
             e.printStackTrace();
 
         }

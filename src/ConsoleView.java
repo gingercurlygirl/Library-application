@@ -1,5 +1,7 @@
 import input.*;
 
+import java.util.List;
+
 public class ConsoleView {
 
     private String user_name;
@@ -60,7 +62,7 @@ public class ConsoleView {
                     System.out.println("Please enter the title of the book you wish to find: ");
                     Book book = access.findBook(InputHandler.getTitle(), null);
                     if (book != null) {
-                        System.out.println("We found one book: " + book);
+                        System.out.println("We found: " + book);
                         running = false;
                     } else {
                         System.out.println("No book found");
@@ -71,7 +73,7 @@ public class ConsoleView {
                     System.out.println("Please enter author of the book you wish to find: ");
                     Book book = access.findBook(null, InputHandler.getAuthor());
                     if (book != null) {
-                        System.out.println("We found one book: " + book);
+                        System.out.println("We found: " + book);
                         running = false;
                     } else {
                         System.out.println("No book found");
@@ -83,13 +85,13 @@ public class ConsoleView {
     }
 
     private void workWithUser(UserAccess access) {
-        System.out.println("Please write your user name:");
+        System.out.println("\nPlease write your user name:");
         user_name = InputHandler.getUserName();
 
 
         boolean running = true;
         while (running) {
-            System.out.println("What do you want to do?\n");
+            System.out.println("\nHi " + user_name + ", What do you want to do?\n");
             System.out.println("1. Loan a book");
             System.out.println("2. Return a book");
             System.out.println("3. List of all my loans");
@@ -99,7 +101,16 @@ public class ConsoleView {
             switch (mode) {
                 case UserMenuMode.LOAN -> loanMenu(access);
                 case UserMenuMode.RETURN -> returnMenu(access);
-                case UserMenuMode.MY_LOANS -> System.out.println(access.getAllLoans(user_name));
+                case UserMenuMode.MY_LOANS -> {
+                    List<Loan> loans = access.getAllLoans(user_name);
+                    if (loans.isEmpty()) {
+                        System.out.println("You don't have any loans.");
+                    } else {
+                        System.out.println(loans);
+                    }
+                }
+
+
                 case UserMenuMode.SEARCH -> searchMenu(access);
                 case UserMenuMode.EXITING -> running = false;
             }
@@ -110,8 +121,8 @@ public class ConsoleView {
     private void workWithAdmin(AdminAccess access) {
         boolean running = true;
         while (running) {
-            System.out.println("##   Logged in as administrator   ##");
-            System.out.println("What do you want to do?\n");
+            System.out.println("\n##   Logged in as administrator   ##");
+            System.out.println("\nWhat do you want to do?");
             System.out.println("1. Add book");
             System.out.println("2. Remove book");
             System.out.println("3. List all books and availabilities");
@@ -145,7 +156,7 @@ public class ConsoleView {
 
     public void showMenu() {
         boolean running = true;
-        System.out.println("##   Welcome to the library!   ##");
+        System.out.println("\n##   Welcome to the library!   ##\n");
         while (running) {
             System.out.println("---Menu---");
             System.out.println("1. User");

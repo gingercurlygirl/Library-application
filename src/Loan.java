@@ -15,12 +15,9 @@ public class Loan {
 
     @Override
     public String toString() {
-        return "Loan{" +
-                "id=" + id +
-                ", user_name='" + user_name + '\'' +
-                ", book_id=" + book_id +
-                ", loan_date='" + loan_date + '\'' +
-                ", return_date='" + return_date + '\'' +
-                '}';
+        return  "\nName= " + user_name +
+                "\nBook id= " + book_id +
+                "\nLoan date= " + loan_date  +
+                "\nReturn date= " + return_date + "\n" ;
     }
 }
