@@ -91,7 +91,6 @@ public class BookDAO {
             ps.setBoolean(3, true);
 
             ps.executeUpdate();
-            System.out.println("Book added successfully");
 
         } catch (SQLException e) {
             System.out.println("Failed to add book");
@@ -134,7 +133,6 @@ public class BookDAO {
             ps.setInt(2, bookId);
 
             ps.executeUpdate();
-            System.out.println("Book updated successfully");
 
         } catch (SQLException e) {
             System.out.println("Failed updating book");

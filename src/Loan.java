@@ -24,11 +24,18 @@ public class Loan {
                 "\tReturn date: " + return_date;
     }
 
+    public String toString(int number) {
+        return  "Number: " + number + " " +
+                book.toStringUser()+
+                "\tLoan date: " + loan_date +
+                "\tReturn date: " + return_date;
+    }
+
     public static String toString(List<Loan> loans) {
         StringBuilder loan_string = new StringBuilder();
         if (!loans.isEmpty()) {
-            for (Loan loan : loans) {
-                loan_string.append(loan.toString()).append("\n");
+            for (int i = 0; i < loans.size(); i++) {
+                loan_string.append(loans.get(i).toString(i+1)).append("\n");
             }
         } else {
             loan_string.append("No loans found");

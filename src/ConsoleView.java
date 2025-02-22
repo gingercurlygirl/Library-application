@@ -16,9 +16,13 @@ public class ConsoleView {
         List<Loan> loans = access.findLoan(user_name, title, author);
         if (loans.size() == 1) {
             access.returnBook(loans.getFirst());
-            System.out.println("Loan return completed! You returned \n" + loans.getFirst() + "\nThank you.");
+            System.out.println("Loan return completed! You returned: \n" + loans.getFirst() + "\nThank you.");
         } else if (loans.size() > 1) {
-            System.out.println("We found more then one loan, please query more precisely:\n" + Loan.toString(loans));
+            System.out.println("We found more then one loan, please use number of specific loan:\n" + Loan.toString(loans));
+            int loan_index = InputHandler.getIntInRange(1, loans.size()+1) - 1;
+            access.returnBook(loans.get(loan_index));
+            System.out.println("Loan return completed! You returned: \n" + loans.get(loan_index) + "\nThank you.");
+
         } else {
             System.out.println("No loan found.");
         }
@@ -34,12 +38,12 @@ public class ConsoleView {
         List<Book> books = access.findBook(title, author, false);
         if (books.size() == 1 && books.getFirst().available) {
             access.loanBook(user_name, books.getFirst());
-            System.out.println("Loan completed! You loaned \n" + books.getFirst() + "\nEnjoy your book.");
+            System.out.println("Loan completed! You loaned: \n" + books.getFirst() + "\nEnjoy your book.");
         } else if (books.size() > 1) {
             System.out.println("We found more then one book, please use number of specific book:\n" + Book.toString(books, false));
             int book_index = InputHandler.getIntInRange(1, books.size()+1) - 1;
             access.loanBook(user_name, books.get(book_index));
-            System.out.println("Loan completed! You loaned \n" + books.get(book_index) + "\nEnjoy your book.");
+            System.out.println("Loan completed! You loaned: \n" + books.get(book_index) + "\nEnjoy your book.");
         } else if (books.isEmpty()) {
             System.out.println("No loan found.");
         } else {

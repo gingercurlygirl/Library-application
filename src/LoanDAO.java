@@ -127,8 +127,6 @@ public class LoanDAO {
             ps.setInt(1, book_id);
 
             ps.executeUpdate();
-            System.out.println("Book returned successfully");
-
         } catch (SQLException e) {
             System.out.println("Failed to return book");
             e.printStackTrace();
