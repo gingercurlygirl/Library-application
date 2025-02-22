@@ -1,6 +1,7 @@
 import input.*;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ConsoleView {
 
@@ -8,42 +9,38 @@ public class ConsoleView {
 
     private void returnMenu(UserAccess access) {
         System.out.println("##   Return a book   ##");
-        boolean running = true;
-        while (running) {
-            System.out.println("Please enter the author and title of the book you wish to return: ");
-            String author = InputHandler.getAuthor();
-            String title = InputHandler.getTitle();
-            Book book = access.findBook(title, author);
-            if (!book.available) {
-                access.returnBook(book);
-                System.out.println("Return completed! Thank you!");
-                running = false;
-            } else {
-                System.out.println("No book found, try again.");
-            }
+        System.out.println("Please enter the author of the book you wish to return: ");
+        String author = InputHandler.getAuthor();
+        System.out.println("Please enter the title of the book you wish to return: ");
+        String title = InputHandler.getTitle();
+        Loan loan = access.findLoan(user_name, title, author);
+        if (loan != null) {
+            access.returnBook(loan);
+            System.out.println("Return completed! Thank you!");
+        } else {
+            System.out.println("No loan found.");
+
         }
     }
 
 
     private void loanMenu(UserAccess access) {
         System.out.println("##   Loan a book   ##");
-        boolean running = true;
-        while (running) {
-            System.out.println("Please enter the author and title of the book you wish to loan: ");
-            String author = InputHandler.getAuthor();
-            String title = InputHandler.getTitle();
-            Book book = access.findBook(title, author);
-            if (book != null && book.available) {
-                access.loanBook(user_name, book);
-                System.out.println("Loan completed! Enjoy your book.");
-                running = false;
+        System.out.println("Please enter the author of the book you wish to loan: ");
+        String author = InputHandler.getAuthor();
+        System.out.println("Please enter the title of the book you wish to loan: ");
+        String title = InputHandler.getTitle();
+        Book book = access.findBook(title, author);
+        if (book != null && book.available) {
+            access.loanBook(user_name, book);
+            System.out.println("Loan completed! Enjoy your book.");
+        } else {
+            if (book == null) {
+                System.out.println("No book found.");
             } else {
-                if (book == null) {
-                    System.out.println("No book found, try again.");
-                } else {
-                    System.out.println("Book is not available, try again.");
-                }
+                System.out.println("Book is not available.");
             }
+
         }
     }
 
@@ -90,9 +87,9 @@ public class ConsoleView {
 
 
         boolean running = true;
+        System.out.println("\nHi " + user_name + ", What do you want to do?\n");
         while (running) {
-            System.out.println("\nHi " + user_name + ", What do you want to do?\n");
-            System.out.println("1. Loan a book");
+            System.out.println("\n1. Loan a book");
             System.out.println("2. Return a book");
             System.out.println("3. List of all my loans");
             System.out.println("4. Search a book");
