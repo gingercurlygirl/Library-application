@@ -16,7 +16,7 @@ public class LoanDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                loan = new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date"));
+                loan = new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date"), null);
                 break;
             }
 
@@ -53,7 +53,7 @@ public class LoanDAO {
     public List<Loan> getAllLoans(String user_name) {
         List<Loan> loans = new ArrayList<Loan>();
 
-        String sql = "SELECT * FROM loans WHERE user_name = ?";
+        String sql = "SELECT loans.id, loans.user_name, loans.book_id, loans.loan_date, loans.return_date, books.title, books.author FROM books INNER JOIN loans ON books.id = loans.book_id WHERE user_name = ?";
 
         try {
             Connection conn = Database.getConnection();
@@ -62,7 +62,19 @@ public class LoanDAO {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                loans.add(new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date")));
+                loans.add(
+                        new Loan(rs.getInt("id"),
+                                rs.getString("user_name"),
+                                rs.getInt("book_id"),
+                                rs.getString("loan_date"),
+                                rs.getString("return_date"),
+                                new Book(rs.getInt("book_id"),
+                                        rs.getString("title"),
+                                        rs.getString("author"),
+                                        false
+                                )
+                        ));
+
             }
 
         } catch (SQLException e) {
@@ -93,7 +105,6 @@ public class LoanDAO {
         }
 
     }
-
 
 
 }

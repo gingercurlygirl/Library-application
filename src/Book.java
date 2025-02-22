@@ -29,6 +29,11 @@ public class Book {
                 "\tAvailable: " + availableStr;
     }
 
+    public String toStringUser() {
+        return  "Title: " + title  +
+                "\tAuthor: " + author;
+    }
+
      public static String toString(List<Book> books) {
         StringBuilder book_string = new StringBuilder();
         if (!books.isEmpty()) {

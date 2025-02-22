@@ -1,24 +1,25 @@
 import java.util.List;
 
 public class Loan {
-    int id;
+    int loan_id;
     String user_name;
     int book_id;
     String loan_date;
     String return_date;
+    Book book;
 
-    public Loan(int id, String user_name, int book_id, String loan_date, String return_date) {
-        this.id = id;
+    public Loan(int id, String user_name, int book_id, String loan_date, String return_date, Book book) {
+        this.loan_id = id;
         this.user_name = user_name;
         this.book_id = book_id;
         this.loan_date = loan_date;
         this.return_date = return_date;
+        this.book = book;
     }
 
     @Override
     public String toString() {
-        return "Name: " + user_name +
-                "\tBook id: " + book_id +
+        return  book.toStringUser()+
                 "\tLoan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
