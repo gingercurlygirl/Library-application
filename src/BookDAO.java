@@ -30,7 +30,7 @@ public class BookDAO {
         return book;
     }
 
-    public List<Book> findBook(String title, String author) {
+    public List<Book> findBook(String title, String author, boolean show_unavailable) {
 
         List<Book> books = new ArrayList<Book>();
 
@@ -38,11 +38,11 @@ public class BookDAO {
         if (title == null && author == null) {
             return null;
         } else if (author == null) {
-            sql = "SELECT * FROM books WHERE books.title LIKE ?";
+            sql = "SELECT * FROM books WHERE books.title LIKE ? AND (books.available = true OR books.available = ?)";
         } else if (title == null) {
-            sql = "SELECT * FROM books WHERE books.author LIKE ?";
+            sql = "SELECT * FROM books WHERE books.author LIKE ? AND (books.available = true OR books.available = ?)";
         } else {
-            sql = "SELECT * FROM books WHERE books.title LIKE ? AND books.author LIKE ?";
+            sql = "SELECT * FROM books WHERE books.title LIKE ? AND books.author LIKE ? AND (books.available = true OR books.available = ?)";
         }
 
 
@@ -52,11 +52,14 @@ public class BookDAO {
 
             if (author == null) {
                 ps.setString(1, "%" + title + "%");
+                ps.setBoolean(2, !show_unavailable);
             } else if (title == null) {
                 ps.setString(1, "%" + author + "%");
+                ps.setBoolean(2, !show_unavailable);
             } else {
                 ps.setString(1, "%" + title + "%");
                 ps.setString(2, "%" + author + "%");
+                ps.setBoolean(3, !show_unavailable);
             }
 
             ResultSet rs = ps.executeQuery();

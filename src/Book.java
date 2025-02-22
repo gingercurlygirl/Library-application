@@ -19,26 +19,45 @@ public class Book {
         String availableStr;
         if (available) {
             availableStr = "available";
-        }else {
+        } else {
             availableStr = "not available";
         }
 
         return "Id: " + id +
-                "\tTitle: " + title  +
-                "\tAuthor: " + author  +
+                "\tTitle: " + title +
+                "\tAuthor: " + author +
+                "\tAvailable: " + availableStr;
+    }
+
+    public String toString(int number) {
+
+        String availableStr;
+        if (available) {
+            availableStr = "available";
+        } else {
+            availableStr = "not available";
+        }
+
+        return "Number: " + number +
+                "\tTitle: " + title +
+                "\tAuthor: " + author +
                 "\tAvailable: " + availableStr;
     }
 
     public String toStringUser() {
-        return  "Title: " + title  +
+        return "Title: " + title +
                 "\tAuthor: " + author;
     }
 
-     public static String toString(List<Book> books) {
+    public static String toString(List<Book> books, boolean show_unavailable) {
         StringBuilder book_string = new StringBuilder();
+
         if (!books.isEmpty()) {
-            for (Book book : books) {
-                book_string.append(book.toString()).append("\n");
+            for (int i = 0; i < books.size(); i++) {
+                // Always show books that are available but only show unavailable if show_unavailable is true
+                if (show_unavailable || books.get(i).available) {
+                    book_string.append(books.get(i).toString(i+1)).append("\n");
+                }
             }
         } else {
             book_string.append("No books found");

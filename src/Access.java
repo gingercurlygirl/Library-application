@@ -62,7 +62,7 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
-    public List<Book> findBook(String title, String author) {
-        return bookDAO.findBook(title, author);
+    public List<Book> findBook(String title, String author, boolean show_unavailable) {
+        return bookDAO.findBook(title, author, show_unavailable);
     }
 }

@@ -31,12 +31,15 @@ public class ConsoleView {
         String author = InputHandler.getAuthor();
         System.out.println("Please enter the title of the book you wish to loan: ");
         String title = InputHandler.getTitle();
-        List<Book> books = access.findBook(title, author);
+        List<Book> books = access.findBook(title, author, false);
         if (books.size() == 1 && books.getFirst().available) {
             access.loanBook(user_name, books.getFirst());
             System.out.println("Loan completed! You loaned \n" + books.getFirst() + "\nEnjoy your book.");
         } else if (books.size() > 1) {
-            System.out.println("We found more then one book, please query more precisely:\n" + Book.toString(books));
+            System.out.println("We found more then one book, please use number of specific book:\n" + Book.toString(books, false));
+            int book_index = InputHandler.getIntInRange(1, books.size()+1) - 1;
+            access.loanBook(user_name, books.get(book_index));
+            System.out.println("Loan completed! You loaned \n" + books.get(book_index) + "\nEnjoy your book.");
         } else if (books.isEmpty()) {
             System.out.println("No loan found.");
         } else {
@@ -58,9 +61,9 @@ public class ConsoleView {
                 case SearchMenuMode.BY_TITLE -> {
                     System.out.println("##   Search by title   ##");
                     System.out.println("Please enter the title of the book you wish to find: ");
-                    List<Book> books = access.findBook(InputHandler.getTitle(), null);
+                    List<Book> books = access.findBook(InputHandler.getTitle(), null, true);
                     if (!books.isEmpty()) {
-                        System.out.println("We found: \n" + Book.toString(books));
+                        System.out.println("We found: \n" + Book.toString(books, true));
                         running = false;
                     } else {
                         System.out.println("No book found");
@@ -69,9 +72,9 @@ public class ConsoleView {
                 case SearchMenuMode.BY_AUTHOR -> {
                     System.out.println("##   Search by author   ##");
                     System.out.println("Please enter author of the book you wish to find: ");
-                    List<Book> books = access.findBook(null, InputHandler.getAuthor());
+                    List<Book> books = access.findBook(null, InputHandler.getAuthor(), true);
                     if (!books.isEmpty()) {
-                        System.out.println("We found: \n" + Book.toString(books));
+                        System.out.println("We found: \n" + Book.toString(books, true));
                         running = false;
                     } else {
                         System.out.println("No book found");
@@ -136,7 +139,7 @@ public class ConsoleView {
                     }
                 }
 
-                case AdminMenuMode.ALL_BOOKS -> System.out.println(Book.toString(access.getAllBooks()));
+                case AdminMenuMode.ALL_BOOKS -> System.out.println(Book.toString(access.getAllBooks(), true));
                 case AdminMenuMode.EXITING -> running = false;
             }
         }
