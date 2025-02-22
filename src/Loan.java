@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Loan {
     int id;
     String user_name;
@@ -15,9 +17,22 @@ public class Loan {
 
     @Override
     public String toString() {
-        return  "\nName= " + user_name +
-                "\nBook id= " + book_id +
-                "\nLoan date= " + loan_date  +
-                "\nReturn date= " + return_date + "\n" ;
+        return "Name: " + user_name +
+                "\tBook id: " + book_id +
+                "\tLoan date: " + loan_date +
+                "\tReturn date: " + return_date;
+    }
+
+    public static String toString(List<Loan> loans) {
+        StringBuilder loan_string = new StringBuilder();
+        if (!loans.isEmpty()) {
+            for (Loan loan : loans) {
+                loan_string.append(loan.toString()).append("\n");
+            }
+        } else {
+            loan_string.append("No loans found");
+        }
+
+        return loan_string.toString();
     }
 }

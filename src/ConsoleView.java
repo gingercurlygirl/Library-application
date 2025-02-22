@@ -101,16 +101,7 @@ public class ConsoleView {
             switch (mode) {
                 case UserMenuMode.LOAN -> loanMenu(access);
                 case UserMenuMode.RETURN -> returnMenu(access);
-                case UserMenuMode.MY_LOANS -> {
-                    List<Loan> loans = access.getAllLoans(user_name);
-                    if (loans.isEmpty()) {
-                        System.out.println("You don't have any loans.");
-                    } else {
-                        System.out.println(loans);
-                    }
-                }
-
-
+                case UserMenuMode.MY_LOANS -> System.out.println(Loan.toString(access.getAllLoans(user_name)));
                 case UserMenuMode.SEARCH -> searchMenu(access);
                 case UserMenuMode.EXITING -> running = false;
             }
@@ -147,7 +138,7 @@ public class ConsoleView {
                     }
                 }
 
-                case AdminMenuMode.ALL_BOOKS -> System.out.println(access.getAllBooks());
+                case AdminMenuMode.ALL_BOOKS -> System.out.println(Book.toString(access.getAllBooks()));
                 case AdminMenuMode.EXITING -> running = false;
             }
         }

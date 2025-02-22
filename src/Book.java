@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class Book {
     int id;
     String title;
@@ -21,9 +23,22 @@ public class Book {
             availableStr = "not available";
         }
 
-        return "\nId= " + id +
-                "\nTitle= " + title  +
-                "\nAuthor= " + author  +
-                "\nAvailable= " + availableStr + "\n";
+        return "Id: " + id +
+                "\tTitle: " + title  +
+                "\tAuthor: " + author  +
+                "\tAvailable: " + availableStr;
+    }
+
+     public static String toString(List<Book> books) {
+        StringBuilder book_string = new StringBuilder();
+        if (!books.isEmpty()) {
+            for (Book book : books) {
+                book_string.append(book.toString()).append("\n");
+            }
+        } else {
+            book_string.append("No books found");
+        }
+
+        return book_string.toString();
     }
 }
