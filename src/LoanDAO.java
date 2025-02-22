@@ -74,7 +74,6 @@ public class LoanDAO {
             ps.setDate(4, return_date);
 
             ps.executeUpdate();
-            System.out.println("Book loaned successfully");
 
         } catch (SQLException e) {
             System.out.println("Failed to loan book");

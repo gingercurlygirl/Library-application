@@ -30,19 +30,19 @@ public class BookDAO {
         return book;
     }
 
-    public Book findBook(String title, String author) {
+    public List<Book> findBook(String title, String author) {
 
-        Book book = null;
+        List<Book> books = new ArrayList<Book>();
 
         String sql;
         if (title == null && author == null) {
             return null;
         } else if (author == null) {
-            sql = "SELECT * FROM books WHERE books.title = ?";
+            sql = "SELECT * FROM books WHERE books.title LIKE ?";
         } else if (title == null) {
-            sql = "SELECT * FROM books WHERE books.author = ?";
+            sql = "SELECT * FROM books WHERE books.author LIKE ?";
         } else {
-            sql = "SELECT * FROM books WHERE books.title = ? AND books.author = ?";
+            sql = "SELECT * FROM books WHERE books.title LIKE ? AND books.author LIKE ?";
         }
 
 
@@ -50,22 +50,19 @@ public class BookDAO {
             Connection conn = Database.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, title);
-
             if (author == null) {
-                ps.setString(1, title);
+                ps.setString(1, "%" + title + "%");
             } else if (title == null) {
-                ps.setString(1, author);
+                ps.setString(1, "%" + author + "%");
             } else {
-                ps.setString(1, title);
-                ps.setString(2, author);
+                ps.setString(1, "%" + title + "%");
+                ps.setString(2, "%" + author + "%");
             }
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                book = new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available"));
-                break;
+                books.add(new Book(rs.getInt("id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available")));
             }
 
         } catch (SQLException e) {
@@ -74,7 +71,7 @@ public class BookDAO {
 
         }
 
-        return book;
+        return books;
 
 
     }

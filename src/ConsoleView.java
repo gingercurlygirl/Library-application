@@ -30,18 +30,18 @@ public class ConsoleView {
         String author = InputHandler.getAuthor();
         System.out.println("Please enter the title of the book you wish to loan: ");
         String title = InputHandler.getTitle();
-        Book book = access.findBook(title, author);
-        if (book != null && book.available) {
-            access.loanBook(user_name, book);
-            System.out.println("Loan completed! Enjoy your book.");
+        List<Book> books = access.findBook(title, author);
+        if (books.size() == 1 && books.getFirst().available) {
+            access.loanBook(user_name, books.getFirst());
+            System.out.println("Loan completed! You loaned \n" + books.getFirst() + "\nEnjoy your book.");
+        } else if (books.size() > 1) {
+            System.out.println("We found more then one book, please query more precisely:\n" + Book.toString(books));
+        } else if (books.isEmpty()) {
+            System.out.println("No loan found.");
         } else {
-            if (book == null) {
-                System.out.println("No book found.");
-            } else {
-                System.out.println("Book is not available.");
-            }
-
+            System.out.println("Book is not available.");
         }
+
     }
 
     private void searchMenu(UserAccess access) {
@@ -57,9 +57,9 @@ public class ConsoleView {
                 case SearchMenuMode.BY_TITLE -> {
                     System.out.println("##   Search by title   ##");
                     System.out.println("Please enter the title of the book you wish to find: ");
-                    Book book = access.findBook(InputHandler.getTitle(), null);
-                    if (book != null) {
-                        System.out.println("We found: " + book);
+                    List<Book> books = access.findBook(InputHandler.getTitle(), null);
+                    if (!books.isEmpty()) {
+                        System.out.println("We found: \n" + Book.toString(books));
                         running = false;
                     } else {
                         System.out.println("No book found");
@@ -68,9 +68,9 @@ public class ConsoleView {
                 case SearchMenuMode.BY_AUTHOR -> {
                     System.out.println("##   Search by author   ##");
                     System.out.println("Please enter author of the book you wish to find: ");
-                    Book book = access.findBook(null, InputHandler.getAuthor());
-                    if (book != null) {
-                        System.out.println("We found: " + book);
+                    List<Book> books = access.findBook(null, InputHandler.getAuthor());
+                    if (!books.isEmpty()) {
+                        System.out.println("We found: \n" + Book.toString(books));
                         running = false;
                     } else {
                         System.out.println("No book found");
