@@ -19,7 +19,7 @@ public class Access implements AdminAccess, UserAccess {
     }
 
     @Override
-    public Loan findLoan(String user_name, String title, String author) {
+    public List<Loan> findLoan(String user_name, String title, String author) {
         return loanDAO.findLoan(user_name, title, author);
     }
 

@@ -6,24 +6,23 @@ import java.util.List;
 
 public class LoanDAO {
 
-        public Loan findLoan(String user_name, String title, String author) {
-        Loan loan = null;
+        public List<Loan> findLoan(String user_name, String title, String author) {
+        List<Loan> loans = new ArrayList<>();
 
-        String sql = "SELECT * FROM loans INNER JOIN books ON books.id = loans.book_id WHERE user_name = ? AND title = ? AND author = ?";
+        String sql = "SELECT * FROM loans INNER JOIN books ON books.id = loans.book_id WHERE user_name = ? AND title LIKE ? AND author LIKE ?";
         try {
             Connection conn = Database.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, user_name);
-            ps.setString(2, title);
-            ps.setString(3, author);
+            ps.setString(2, "%" + title + "%");
+            ps.setString(3, "%" + author + "%");
 
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Book book = new Book(rs.getInt("book_id"), rs.getString("title"), rs.getString("author"), rs.getBoolean("available"));
-                loan = new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date"), book);
-                break;
+                loans.add(new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date"), book));
             }
 
         } catch (SQLException e) {
@@ -32,7 +31,7 @@ public class LoanDAO {
 
         }
 
-        return loan;
+        return loans;
     }
 
     public Loan findLoan(int book_id) {

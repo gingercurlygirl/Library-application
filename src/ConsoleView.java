@@ -13,13 +13,14 @@ public class ConsoleView {
         String author = InputHandler.getAuthor();
         System.out.println("Please enter the title of the book you wish to return: ");
         String title = InputHandler.getTitle();
-        Loan loan = access.findLoan(user_name, title, author);
-        if (loan != null) {
-            access.returnBook(loan);
-            System.out.println("Return completed! Thank you!");
+        List<Loan> loans = access.findLoan(user_name, title, author);
+        if (loans.size() == 1) {
+            access.returnBook(loans.getFirst());
+            System.out.println("Loan return completed! You returned \n" + loans.getFirst() + "\nThank you.");
+        } else if (loans.size() > 1) {
+            System.out.println("We found more then one loan, please query more precisely:\n" + Loan.toString(loans));
         } else {
             System.out.println("No loan found.");
-
         }
     }
 
