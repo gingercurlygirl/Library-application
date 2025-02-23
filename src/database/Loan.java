@@ -1,3 +1,5 @@
+package database;
+
 import java.util.List;
 
 public class Loan {
@@ -20,14 +22,14 @@ public class Loan {
     @Override
     public String toString() {
         return  book.toStringUser()+
-                "\tLoan date: " + loan_date +
+                "\tdatabase.Loan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
 
     public String toString(int number) {
         return  "Number: " + number + " " +
                 book.toStringUser()+
-                "\tLoan date: " + loan_date +
+                "\tdatabase.Loan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
 
@@ -43,4 +45,9 @@ public class Loan {
 
         return loan_string.toString();
     }
+
+    public int getBook_id() {
+        return book_id;
+    }
+
 }

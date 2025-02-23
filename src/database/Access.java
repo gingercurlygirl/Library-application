@@ -1,7 +1,8 @@
+package database;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 public class Access implements AdminAccess, UserAccess {
 
@@ -44,21 +45,21 @@ public class Access implements AdminAccess, UserAccess {
             return;
         }
 
-        loanDAO.deleteLoan(loan.book_id);
-        bookDAO.setAvailable(true, loan.book_id);
+        loanDAO.deleteLoan(loan.getBook_id());
+        bookDAO.setAvailable(true, loan.getBook_id());
     }
 
     @Override
     public void loanBook(String user_name, Book book) {
-        if (book == null || !book.available) {
+        if (book == null || !book.isAvailable()) {
             return;
         }
 
         LocalDate loan_date = LocalDate.now();
         LocalDate return_date = loan_date.plusMonths(1);
 
-        loanDAO.loanBook(user_name, book.id, Date.valueOf(loan_date), Date.valueOf(return_date));
-        bookDAO.setAvailable(false, book.id);
+        loanDAO.loanBook(user_name, book.getId(), Date.valueOf(loan_date), Date.valueOf(return_date));
+        bookDAO.setAvailable(false, book.getId());
     }
 
     @Override

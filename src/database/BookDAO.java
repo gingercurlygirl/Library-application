@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +153,7 @@ public class BookDAO {
             ps.setInt(1, bookId);
 
             ps.executeUpdate();
-            System.out.println("Book deleted successfully");
+            System.out.println("database.Book deleted successfully");
 
         } catch (SQLException e) {
             System.out.println("Failed deleting book. Maybe book is already loaned or does not exist.");

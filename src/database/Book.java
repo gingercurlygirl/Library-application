@@ -1,3 +1,5 @@
+package database;
+
 import java.util.List;
 
 public class Book {
@@ -64,5 +66,13 @@ public class Book {
         }
 
         return book_string.toString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isAvailable() {
+        return available;
     }
 }

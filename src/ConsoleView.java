@@ -1,7 +1,10 @@
+import database.UserAccess;
+import database.AdminAccess;
+import database.Loan;
+import database.Book;
 import input.*;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class ConsoleView {
 
@@ -16,12 +19,12 @@ public class ConsoleView {
         List<Loan> loans = access.findLoan(user_name, title, author);
         if (loans.size() == 1) {
             access.returnBook(loans.getFirst());
-            System.out.println("Loan return completed! You returned: \n" + loans.getFirst() + "\nThank you.");
+            System.out.println("database.Loan return completed! You returned: \n" + loans.getFirst() + "\nThank you.");
         } else if (loans.size() > 1) {
             System.out.println("We found more then one loan, please use number of specific loan:\n" + Loan.toString(loans));
             int loan_index = InputHandler.getIntInRange(1, loans.size()+1) - 1;
             access.returnBook(loans.get(loan_index));
-            System.out.println("Loan return completed! You returned: \n" + loans.get(loan_index) + "\nThank you.");
+            System.out.println("database.Loan return completed! You returned: \n" + loans.get(loan_index) + "\nThank you.");
 
         } else {
             System.out.println("No loan found.");
@@ -30,24 +33,24 @@ public class ConsoleView {
 
 
     private void loanMenu(UserAccess access) {
-        System.out.println("##   Loan a book   ##");
+        System.out.println("##   database.Loan a book   ##");
         System.out.println("Please enter the author of the book you wish to loan: ");
         String author = InputHandler.getAuthor();
         System.out.println("Please enter the title of the book you wish to loan: ");
         String title = InputHandler.getTitle();
         List<Book> books = access.findBook(title, author, false);
-        if (books.size() == 1 && books.getFirst().available) {
+        if (books.size() == 1 && books.getFirst().isAvailable()) {
             access.loanBook(user_name, books.getFirst());
-            System.out.println("Loan completed! You loaned: \n" + books.getFirst() + "\nEnjoy your book.");
+            System.out.println("database.Loan completed! You loaned: \n" + books.getFirst() + "\nEnjoy your book.");
         } else if (books.size() > 1) {
             System.out.println("We found more then one book, please use number of specific book:\n" + Book.toString(books, false));
             int book_index = InputHandler.getIntInRange(1, books.size()+1) - 1;
             access.loanBook(user_name, books.get(book_index));
-            System.out.println("Loan completed! You loaned: \n" + books.get(book_index) + "\nEnjoy your book.");
+            System.out.println("database.Loan completed! You loaned: \n" + books.get(book_index) + "\nEnjoy your book.");
         } else if (books.isEmpty()) {
             System.out.println("No loan found.");
         } else {
-            System.out.println("Book is not available.");
+            System.out.println("database.Book is not available.");
         }
 
     }
@@ -89,7 +92,7 @@ public class ConsoleView {
         }
     }
 
-    private void workWithUser(UserAccess access) {
+    public void workWithUser(UserAccess access) {
         System.out.println("\nPlease write your user name:");
         user_name = InputHandler.getUserName();
 
@@ -97,7 +100,7 @@ public class ConsoleView {
         boolean running = true;
         System.out.println("\nHi " + user_name + ", What do you want to do?\n");
         while (running) {
-            System.out.println("\n1. Loan a book");
+            System.out.println("\n1. database.Loan a book");
             System.out.println("2. Return a book");
             System.out.println("3. List of all my loans");
             System.out.println("4. Search a book");
@@ -114,7 +117,7 @@ public class ConsoleView {
     }
 
 
-    private void workWithAdmin(AdminAccess access) {
+    public void workWithAdmin(AdminAccess access) {
         boolean running = true;
         while (running) {
             System.out.println("\n##   Logged in as administrator   ##");
@@ -137,7 +140,7 @@ public class ConsoleView {
                     int book_id = InputHandler.getInt();
                     Book book = access.findBook(book_id);
                     if (book == null) {
-                        System.out.println("Book not found");
+                        System.out.println("database.Book not found");
                     } else {
                         access.deleteBook(book_id);
                     }
@@ -149,30 +152,4 @@ public class ConsoleView {
         }
 
     }
-
-    public void showMenu() {
-        boolean running = true;
-        System.out.println("\n##   Welcome to the library!   ##\n");
-        while (running) {
-            System.out.println("---Menu---");
-            System.out.println("1. User");
-            System.out.println("2. Admin");
-            System.out.println("0. Exit");
-
-            Access access = new Access();
-            AccessMode mode = InputHandler.getMode();
-            switch (mode) {
-                case AccessMode.USER -> workWithUser(access);
-                case AccessMode.ADMIN -> workWithAdmin(access);
-                case AccessMode.EXITING -> {
-                    System.out.println("Goodbye!");
-                    running = false;
-                }
-
-            }
-        }
-    }
-
 }
-
-
