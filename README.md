@@ -2,8 +2,9 @@
 
 ## Hur programmet körs?
 1. Kör MySQL script `library_database.sql`
-2. Ställa in environment variabler `MYSQL_USER` och `MYSQL_PASSWORD` enligt din MySQL
-3. Kör `src/Main.java`
+2. Ställ in `lib/mysql-connector-j-9.2.0.jar` som beroende i InteliJ IDEA.
+3. Ställa in environment variabler `MYSQL_USER` och `MYSQL_PASSWORD` enligt din MySQL
+4. Kör `src/Main.java`
 
 ## Applikations beskrivning
 
