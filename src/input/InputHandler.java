@@ -99,43 +99,47 @@ public class InputHandler {
     public static String getTitle() {
         while (true) {
             String answer = scanner.nextLine();
-            if (!answer.isEmpty() && answer.length() <= 40 ) {
+            if (!answer.isEmpty() && answer.length() <= 40) {
                 return answer;
             }
             System.out.println("Invalid input! Maximum length 40 characters. Letters only.");
         }
 
     }
+
     public static String getAuthor() {
-        while(true) {
+        while (true) {
             String answer = scanner.nextLine();
-            if (!answer.isEmpty() && answer.length() <= 50 ) {
+            if (!answer.isEmpty() && answer.length() <= 50) {
                 return answer;
             }
             System.out.println("Invalid input! Maximum length  50 characters. Letters only.");
         }
     }
+
     public static String getUserName() {
-        while(true) {
+        while (true) {
             String answer = scanner.nextLine();
-            if (!answer.isEmpty() && answer.length() <= 10 ) {
+            if (!answer.isEmpty() && answer.length() <= 10) {
                 return answer;
             }
             System.out.println("Invalid input! Maximum length  10 characters. Letters only.");
         }
     }
+
     public static int getInt() {
         while (true) {
-            if(scanner.hasNextInt()){
+            if (scanner.hasNextInt()) {
                 return scanner.nextInt();
             }
             scanner.nextLine();
             System.out.println("Please enter an integer");
         }
     }
+
     public static int getIntInRange(int min, int max) {
         while (true) {
-            if(scanner.hasNextInt()){
+            if (scanner.hasNextInt()) {
                 int input = scanner.nextInt();
                 if (input >= min && input <= max) {
                     scanner.nextLine();

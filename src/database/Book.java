@@ -58,7 +58,7 @@ public class Book {
             for (int i = 0; i < books.size(); i++) {
                 // Always show books that are available but only show unavailable if show_unavailable is true
                 if (show_unavailable || books.get(i).available) {
-                    book_string.append(books.get(i).toString(i+1)).append("\n");
+                    book_string.append(books.get(i).toString(i + 1)).append("\n");
                 }
             }
         } else {

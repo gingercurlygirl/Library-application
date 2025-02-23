@@ -22,7 +22,7 @@ public class ConsoleView {
             System.out.println("database.Loan return completed! You returned: \n" + loans.getFirst() + "\nThank you.");
         } else if (loans.size() > 1) {
             System.out.println("We found more then one loan, please use number of specific loan:\n" + Loan.toString(loans));
-            int loan_index = InputHandler.getIntInRange(1, loans.size()+1) - 1;
+            int loan_index = InputHandler.getIntInRange(1, loans.size() + 1) - 1;
             access.returnBook(loans.get(loan_index));
             System.out.println("database.Loan return completed! You returned: \n" + loans.get(loan_index) + "\nThank you.");
 
@@ -44,7 +44,7 @@ public class ConsoleView {
             System.out.println("database.Loan completed! You loaned: \n" + books.getFirst() + "\nEnjoy your book.");
         } else if (books.size() > 1) {
             System.out.println("We found more then one book, please use number of specific book:\n" + Book.toString(books, false));
-            int book_index = InputHandler.getIntInRange(1, books.size()+1) - 1;
+            int book_index = InputHandler.getIntInRange(1, books.size() + 1) - 1;
             access.loanBook(user_name, books.get(book_index));
             System.out.println("database.Loan completed! You loaned: \n" + books.get(book_index) + "\nEnjoy your book.");
         } else if (books.isEmpty()) {

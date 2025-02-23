@@ -21,14 +21,14 @@ public class Loan {
 
     @Override
     public String toString() {
-        return  book.toStringUser()+
+        return book.toStringUser() +
                 "\tdatabase.Loan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
 
     public String toString(int number) {
-        return  "Number: " + number + " " +
-                book.toStringUser()+
+        return "Number: " + number + " " +
+                book.toStringUser() +
                 "\tdatabase.Loan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
@@ -37,7 +37,7 @@ public class Loan {
         StringBuilder loan_string = new StringBuilder();
         if (!loans.isEmpty()) {
             for (int i = 0; i < loans.size(); i++) {
-                loan_string.append(loans.get(i).toString(i+1)).append("\n");
+                loan_string.append(loans.get(i).toString(i + 1)).append("\n");
             }
         } else {
             loan_string.append("No loans found");

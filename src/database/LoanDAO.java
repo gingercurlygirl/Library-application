@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class LoanDAO {
 
-        public List<Loan> findLoan(String user_name, String title, String author) {
+    public List<Loan> findLoan(String user_name, String title, String author) {
         List<Loan> loans = new ArrayList<>();
 
         String sql = "SELECT * FROM loans INNER JOIN books ON books.id = loans.book_id WHERE user_name = ? AND title LIKE ? AND author LIKE ?";
@@ -34,32 +33,6 @@ public class LoanDAO {
         }
 
         return loans;
-    }
-
-    public Loan findLoan(int book_id) {
-        Loan loan = null;
-
-        String sql = "SELECT * FROM loans WHERE loans.book_id = ?";
-        try {
-            Connection conn = Database.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-
-            ps.setInt(1, book_id);
-
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                loan = new Loan(rs.getInt("id"), rs.getString("user_name"), rs.getInt("book_id"), rs.getString("loan_date"), rs.getString("return_date"), null);
-                break;
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Failed to get your book! Try again!");
-            e.printStackTrace();
-
-        }
-
-        return loan;
     }
 
     public void loanBook(String user_name, int book_id, java.sql.Date loan_date, java.sql.Date return_date) {

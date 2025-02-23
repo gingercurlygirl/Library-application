@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Access implements AdminAccess, UserAccess {
 
-    private BookDAO bookDAO = new BookDAO();
-    private LoanDAO loanDAO = new LoanDAO();
+    private final BookDAO bookDAO = new BookDAO();
+    private final LoanDAO loanDAO = new LoanDAO();
 
     @Override
     public void addBook(String title, String author) {
