@@ -22,14 +22,14 @@ public class Loan {
     @Override
     public String toString() {
         return book.toStringUser() +
-                "\tdatabase.Loan date: " + loan_date +
+                "\tLoan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
 
     public String toString(int number) {
-        return "Number: " + number + " " +
+        return "Number: " + String.format("%-3s", number) + " " +
                 book.toStringUser() +
-                "\tdatabase.Loan date: " + loan_date +
+                "\tLoan date: " + loan_date +
                 "\tReturn date: " + return_date;
     }
 

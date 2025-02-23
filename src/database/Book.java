@@ -25,9 +25,9 @@ public class Book {
             availableStr = "not available";
         }
 
-        return "Id: " + id +
-                "\tTitle: " + title +
-                "\tAuthor: " + author +
+        return "Id: " + String.format("%-3s", id) +
+                "\tTitle: " + String.format("%-50s", title) +
+                "\tAuthor: " + String.format("%-30s", author) +
                 "\tAvailable: " + availableStr;
     }
 
@@ -40,15 +40,25 @@ public class Book {
             availableStr = "not available";
         }
 
-        return "Number: " + number +
-                "\tTitle: " + title +
-                "\tAuthor: " + author +
+        return "Number: " + String.format("%-3s", number) +
+                "\tTitle: " + String.format("%-50s", title) +
+                "\tAuthor: " + String.format("%-30s", author) +
                 "\tAvailable: " + availableStr;
     }
 
     public String toStringUser() {
-        return "Title: " + title +
-                "\tAuthor: " + author;
+        return "Title: " + String.format("%-50s", title) +
+                "\tAuthor: " + String.format("%-30s", author);
+    }
+
+    public static String toString(List<Book> books) {
+        StringBuilder book_string = new StringBuilder();
+
+        for (Book book : books) {
+            book_string.append(book.toString()).append("\n");
+        }
+
+        return book_string.toString();
     }
 
     public static String toString(List<Book> books, boolean show_unavailable) {
